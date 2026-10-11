@@ -26,28 +26,38 @@ const empty: Fields = {
   message: "",
 };
 
-function buildMailto(f: Fields) {
-  const subject = f.interest
-    ? `Enquiry: ${f.interest}${f.company ? ` — ${f.company}` : ""}`
-    : `Website enquiry${f.company ? ` — ${f.company}` : ""}`;
+function subjectFor(f: Fields) {
+  const suffix = f.company ? ` — ${f.company}` : "";
+  return f.interest ? `Enquiry: ${f.interest}${suffix}` : `Website enquiry${suffix}`;
+}
 
-  const lines = [
+/** The enquiry as plain text, used for email, WhatsApp and clipboard alike. */
+function bodyFor(f: Fields) {
+  // null drops an unfilled optional field; "" is a deliberate blank line.
+  const optional = (label: string, value: string) => (value ? `${label}: ${value}` : null);
+  const lines: (string | null)[] = [
     f.message.trim(),
     "",
     "—",
     `Name: ${f.name}`,
-    f.company && `Company: ${f.company}`,
+    optional("Company", f.company),
     `Email: ${f.email}`,
-    f.phone && `Phone: ${f.phone}`,
-    f.vessel && `Vessel / fleet: ${f.vessel}`,
-    f.interest && `Interested in: ${f.interest}`,
+    optional("Phone", f.phone),
+    optional("Vessel / fleet", f.vessel),
+    optional("Interested in", f.interest),
     "",
     "Sent from fuel-meters.com",
-  ].filter(Boolean) as string[];
+  ];
+  return lines.filter((line) => line !== null).join("\n");
+}
 
-  return `mailto:${contact.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(
-    lines.join("\n"),
-  )}`;
+function mailtoFor(f: Fields) {
+  return `mailto:${contact.email}?subject=${encodeURIComponent(subjectFor(f))}&body=${encodeURIComponent(bodyFor(f))}`;
+}
+
+function whatsappFor(f: Fields) {
+  const text = `${subjectFor(f)}\n\n${bodyFor(f)}`;
+  return `https://wa.me/${contact.whatsapp}?text=${encodeURIComponent(text)}`;
 }
 
 const labelClass = "block font-display text-[13px] font-bold tracking-wide text-navy-900";
@@ -56,17 +66,43 @@ const fieldClass =
 
 export function EnquiryForm() {
   const [fields, setFields] = useState<Fields>(empty);
-  const [sent, setSent] = useState(false);
+  const [handedOff, setHandedOff] = useState<null | "email" | "whatsapp">(null);
+  const [copied, setCopied] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
 
-  const set = (key: keyof Fields) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) =>
-    setFields((prev) => ({ ...prev, [key]: e.target.value }));
+  const set =
+    (key: keyof Fields) =>
+    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) =>
+      setFields((prev) => ({ ...prev, [key]: e.target.value }));
+
+  /** Run native validation before handing the enquiry to any external app. */
+  const validate = () => formRef.current?.reportValidity() ?? false;
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (!formRef.current?.reportValidity()) return;
-    window.location.href = buildMailto(fields);
-    setSent(true);
+    if (!validate()) return;
+    // The mail client may silently fail to open (common with browser-based
+    // webmail), so the fallback panel is shown either way.
+    window.location.href = mailtoFor(fields);
+    setHandedOff("email");
+  }
+
+  function handleWhatsApp() {
+    if (!validate()) return;
+    window.open(whatsappFor(fields), "_blank", "noopener,noreferrer");
+    setHandedOff("whatsapp");
+  }
+
+  async function handleCopy() {
+    const text = `To: ${contact.email}\nSubject: ${subjectFor(fields)}\n\n${bodyFor(fields)}`;
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 4000);
+    } catch {
+      // Clipboard can be blocked; the enquiry stays on screen to copy by hand.
+      setCopied(false);
+    }
   }
 
   return (
@@ -190,40 +226,105 @@ export function EnquiryForm() {
         </p>
       </div>
 
-      <button
-        type="submit"
-        className="inline-flex w-full items-center justify-center gap-2 rounded-md bg-brand-600 px-6 py-3.5 font-display text-sm font-bold text-white transition-colors hover:bg-brand-700 sm:w-auto"
-      >
-        <Icon name="mail" className="h-4 w-4" />
-        Send enquiry
-      </button>
+      <div className="flex flex-col gap-3 sm:flex-row">
+        <button
+          type="submit"
+          className="inline-flex items-center justify-center gap-2 rounded-md bg-brand-600 px-6 py-3.5 font-display text-sm font-bold text-white transition-colors hover:bg-brand-700"
+        >
+          <Icon name="mail" className="h-4 w-4" />
+          Send by email
+        </button>
+        <button
+          type="button"
+          onClick={handleWhatsApp}
+          className="inline-flex items-center justify-center gap-2 rounded-md bg-navy-900 px-6 py-3.5 font-display text-sm font-bold text-white transition-colors hover:bg-navy-800"
+        >
+          <Icon name="whatsapp" className="h-4 w-4" />
+          Send on WhatsApp
+        </button>
+      </div>
 
       <p className="text-sm leading-relaxed text-navy-800/65">
-        This opens your email app with the message ready to send to{" "}
-        <a href={`mailto:${contact.email}`} className="font-semibold text-brand-600 underline underline-offset-2">
+        Both options open the enquiry ready to send — nothing is submitted until you send it. You
+        can also write to{" "}
+        <a
+          href={`mailto:${contact.email}`}
+          className="font-semibold text-brand-600 underline underline-offset-2"
+        >
           {contact.email}
-        </a>
-        . Prefer to write it yourself? Email or call {contact.name} on{" "}
-        <a href={`tel:${contact.phoneHref}`} className="font-semibold text-brand-600 underline underline-offset-2">
+        </a>{" "}
+        or call {contact.name.split(" ")[0]} on{" "}
+        <a
+          href={`tel:${contact.phoneHref}`}
+          className="font-semibold text-brand-600 underline underline-offset-2"
+        >
           {contact.phone}
         </a>
         .
       </p>
 
-      {sent ? (
+      {handedOff ? (
         <div
           role="status"
-          className="flex items-start gap-3 rounded-md border border-brand-500/30 bg-mist-50 p-4 text-sm text-navy-900"
+          className="rounded-lg border border-brand-500/30 bg-mist-50 p-5 text-sm text-navy-900"
         >
-          <Icon name="check" className="mt-0.5 h-5 w-5 shrink-0 text-brand-600" />
-          <span>
-            Your email app should now be open with the enquiry drafted. If nothing happened, send it
-            directly to{" "}
-            <a href={`mailto:${contact.email}`} className="font-semibold text-brand-600 underline underline-offset-2">
-              {contact.email}
+          <p className="flex items-start gap-3 font-semibold">
+            <Icon name="check" className="mt-0.5 h-5 w-5 shrink-0 text-brand-600" />
+            {handedOff === "email"
+              ? "Your email app should have opened with the enquiry ready to send."
+              : "WhatsApp should have opened with the enquiry ready to send."}
+          </p>
+          <p className="mt-3 leading-relaxed text-navy-800/75">
+            Nothing happened?{" "}
+            {handedOff === "email"
+              ? "That happens when the browser has no mail app set up — common with webmail like Gmail."
+              : "That happens if WhatsApp is not installed or the pop-up was blocked."}{" "}
+            Copy the enquiry and send it yourself, or reach {contact.name.split(" ")[0]} directly.
+          </p>
+          <div className="mt-4 flex flex-wrap gap-2.5">
+            <button
+              type="button"
+              onClick={handleCopy}
+              className="inline-flex items-center gap-2 rounded-md border border-mist-300 bg-white px-4 py-2.5 font-display text-[13px] font-bold text-navy-900 transition-colors hover:border-brand-500"
+            >
+              <Icon name={copied ? "check" : "copy"} className="h-4 w-4 text-brand-600" />
+              {copied ? "Copied to clipboard" : "Copy enquiry"}
+            </button>
+            {handedOff === "email" ? (
+              <button
+                type="button"
+                onClick={handleWhatsApp}
+                className="inline-flex items-center gap-2 rounded-md border border-mist-300 bg-white px-4 py-2.5 font-display text-[13px] font-bold text-navy-900 transition-colors hover:border-brand-500"
+              >
+                <Icon name="whatsapp" className="h-4 w-4 text-brand-600" />
+                Try WhatsApp instead
+              </button>
+            ) : (
+              <a
+                href={mailtoFor(fields)}
+                className="inline-flex items-center gap-2 rounded-md border border-mist-300 bg-white px-4 py-2.5 font-display text-[13px] font-bold text-navy-900 transition-colors hover:border-brand-500"
+              >
+                <Icon name="mail" className="h-4 w-4 text-brand-600" />
+                Try email instead
+              </a>
+            )}
+            <a
+              href={`tel:${contact.phoneHref}`}
+              className="inline-flex items-center gap-2 rounded-md border border-mist-300 bg-white px-4 py-2.5 font-display text-[13px] font-bold text-navy-900 transition-colors hover:border-brand-500"
+            >
+              <Icon name="phone" className="h-4 w-4 text-brand-600" />
+              {contact.phone}
             </a>
-            .
-          </span>
+          </div>
+
+          <details className="mt-4">
+            <summary className="cursor-pointer font-display text-[13px] font-bold text-brand-600">
+              Show the enquiry text
+            </summary>
+            <pre className="mt-3 max-h-64 overflow-auto whitespace-pre-wrap rounded-md border border-mist-200 bg-white p-4 font-sans text-[13px] leading-relaxed text-navy-800">
+              {`To: ${contact.email}\nSubject: ${subjectFor(fields)}\n\n${bodyFor(fields)}`}
+            </pre>
+          </details>
         </div>
       ) : null}
     </form>
