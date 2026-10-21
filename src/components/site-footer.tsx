@@ -15,11 +15,11 @@ export function SiteFooter() {
             {site.tagline}
           </p>
           <p className="mt-5 max-w-sm text-sm leading-relaxed text-mist-200/80">
-            BROSCO pressure, temperature and level instrumentation and AQUAMETRO flow
+            PETROL Instruments positive displacement flowmeters and AQUAMETRO flow
             measurement solutions for vessel and tanker operations.
           </p>
           <a
-            href="/brosco-aquametro-marine-brochure.pdf"
+            href="/petrol-aquametro-marine-brochure.pdf"
             download
             className="mt-6 inline-flex items-center gap-2 rounded-md border border-white/25 px-4 py-2.5 font-display text-sm font-bold text-white transition-colors hover:border-white hover:bg-white/10"
           >
@@ -96,7 +96,7 @@ export function SiteFooter() {
         <Container className="flex flex-col gap-2 py-6 text-xs text-mist-200/60 sm:flex-row sm:items-center sm:justify-between">
           <p>© {site.name}. All rights reserved.</p>
           <p>
-            BROSCO® and AQUAMETRO® are registered trademarks of their respective owners.
+            PETROL® and AQUAMETRO® are registered trademarks of their respective owners.
           </p>
         </Container>
       </div>

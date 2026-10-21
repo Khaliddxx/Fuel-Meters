@@ -3,13 +3,14 @@ import Image from "next/image";
 import { CtaBand } from "@/components/cta-band";
 import { Icon } from "@/components/icon";
 import { PageHero } from "@/components/page-hero";
+import { Approvals } from "@/components/approvals";
 import { Button, Container, IconBadge, SectionHeading } from "@/components/ui";
 import { brands } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Products — pressure, temperature, level and flow",
+  title: "Products — PD flowmeters, master meters and flow measurement",
   description:
-    "BROSCO pressure gauges, temperature instruments and level measurement, plus AQUAMETRO flow meters, totalisers and specialist fuel and oil metering for marine service.",
+    "PETROL Instruments positive displacement flowmeters, master meters, tank provers, strainers and control valves, plus AQUAMETRO electromagnetic, ultrasonic, turbine and Coriolis flow meters for marine service.",
   alternates: { canonical: "/products" },
 };
 
@@ -27,8 +28,8 @@ export default function ProductsPage() {
     <>
       <PageHero
         eyebrow="Our products"
-        title="Pressure, temperature, level and flow — specified for marine duty"
-        lead="Two complementary brands covering everything a vessel measures, from a local pressure gauge on a ballast line to mass-based bunker metering."
+        title="Positive displacement and electronic flow measurement, specified for marine duty"
+        lead="Two complementary brands, from a fiscal-grade PD meter on a cargo line to mass-based bunker metering and the strainers, provers and valves around them."
         image="/img/manifold-deck.webp"
       />
 
@@ -103,6 +104,75 @@ export default function ProductsPage() {
         </section>
       ))}
 
+      <section className="bg-navy-950 py-20 text-white md:py-24">
+        <Container>
+          <SectionHeading
+            eyebrow="Built around the meter"
+            tone="light"
+            title="The equipment that keeps a fiscal meter honest"
+            lead="A custody transfer meter is only as good as what sits around it — a strainer keeping debris out of the chamber, a prover to check it against, and a reference meter to settle the question on site."
+          />
+          <ul className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              {
+                src: "/img/petrol-pd-meters.webp",
+                w: 1200,
+                h: 653,
+                alt: "Three PETROL Instruments positive displacement flowmeters with mechanical dial counters",
+                title: "The PD range",
+                body: "From 1\" line sizes up to 16\", single and double case, with mechanical dials or electronic fiscal counters.",
+              },
+              {
+                src: "/img/petrol-master-meter.webp",
+                w: 700,
+                h: 731,
+                alt: "PETROL Instruments 16-inch master meter with mechanical counter",
+                title: "Master meters",
+                body: "±0.1% reference meters from 1\" to 16\", including a portable 4\" unit on a trolley for proving meters in service.",
+              },
+              {
+                src: "/img/petrol-strainers.webp",
+                w: 900,
+                h: 714,
+                alt: "Range of PETROL Instruments basket type protection strainers",
+                title: "Basket strainers",
+                body: "0.5\" to 16\" with 40, 80 and 200 mesh screeners, keeping foreign particles out of the measuring chamber.",
+              },
+              {
+                src: "/img/petrol-cutaway.webp",
+                w: 1000,
+                h: 806,
+                alt: "Cutaway of a double case PD flowmeter showing rotors, magnetic transmission and counter",
+                title: "Inside the double case",
+                body: "Rotors, timing gears, magnetic transmission and counter — the measuring unit lifts out without breaking the line.",
+              },
+            ].map((item) => (
+              <li
+                key={item.title}
+                className="overflow-hidden rounded-xl border border-white/12 bg-white/[0.04]"
+              >
+                <div className="bg-white">
+                  <Image
+                    src={item.src}
+                    alt={item.alt}
+                    width={item.w}
+                    height={item.h}
+                    sizes="(min-width: 1024px) 270px, (min-width: 640px) 45vw, 100vw"
+                    className="h-56 w-full object-contain p-5"
+                  />
+                </div>
+                <div className="p-6">
+                  <h3 className="font-display text-base font-bold text-white">{item.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-mist-200/75">{item.body}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </Container>
+      </section>
+
+      <Approvals />
+
       <section className="border-t border-mist-200 py-20 md:py-24">
         <Container>
           <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
@@ -131,7 +201,7 @@ export default function ProductsPage() {
                 ))}
               </ul>
               <a
-                href="/brosco-aquametro-marine-brochure.pdf"
+                href="/petrol-aquametro-marine-brochure.pdf"
                 download
                 className="mt-6 inline-flex items-center gap-2 font-display text-sm font-bold text-brand-600 hover:text-brand-700"
               >

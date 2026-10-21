@@ -9,7 +9,7 @@ import { applications } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Marine applications — tankers, bunkering, offshore and fleet",
   description:
-    "Proven marine applications for BROSCO and AQUAMETRO instruments: oil and chemical tankers, LNG/LPG carriers, bunkering, offshore support vessels, fuel management, cargo transfer and engine room measurement.",
+    "Proven marine applications for PETROL Instruments and AQUAMETRO flow measurement: oil and chemical tankers, LNG/LPG carriers, bunkering, offshore support vessels, fuel management, cargo transfer and engine room measurement.",
   alternates: { canonical: "/applications" },
 };
 
@@ -27,7 +27,7 @@ const scenarios = [
   {
     icon: "tanker",
     title: "Cargo operations without the guesswork",
-    body: "Pressure at the manifold, temperature in the tank and continuous level through loading and discharge — so the deck crew sees the operation as it happens, not after the fact.",
+    body: "A fiscal-grade PD meter on the cargo line totalising through loading and discharge, so the figure on the ticket is the figure that moved — not a calculation argued about afterwards.",
   },
 ];
 

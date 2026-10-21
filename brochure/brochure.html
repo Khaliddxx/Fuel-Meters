@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>PETROL &amp; AQUAMETRO — Marine Measurement</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{--navy-950:#001c3d;--navy-900:#002b5c;--navy-800:#003a78;--navy-700:#014a8f;
+        --brand-600:#0b6abc;--brand-500:#1b87d6;--brand-400:#46a3e4;
+        --mist-50:#f4f9fd;--mist-100:#e6f1fa;--mist-200:#cfe3f5;--mist-300:#a9caea}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  body{font-family:Inter,sans-serif;color:var(--navy-900);font-size:9.3pt;line-height:1.45}
+  h1,h2,h3{font-family:Montserrat,sans-serif;letter-spacing:-.01em}
+  .page{width:210mm;height:297mm;position:relative;overflow:hidden;page-break-after:always;background:#fff}
+  .page.sheet{display:flex;flex-direction:column}
+  .page:last-child{page-break-after:auto}
+  svg{fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+
+  /* cover */
+  .brandbar{display:flex;align-items:center;gap:13mm;padding:10mm 14mm 5mm}
+  .brandbar img{height:11.5mm;width:auto}
+  .brandbar i{display:block;width:1px;height:12mm;background:var(--mist-300)}
+  .coverhead{padding:0 14mm;text-align:center}
+  .coverhead h1{font-size:25pt;font-weight:800;color:var(--navy-800);line-height:1.04}
+  .coverhead h1 span{display:block;font-weight:600;color:var(--navy-700)}
+  .rule{display:flex;gap:5mm;justify-content:center;margin:3.5mm 0 2.5mm}
+  .rule i{display:block;height:2px;width:22mm;background:var(--brand-500)}
+  .coverhead p{font-size:10.5pt;font-style:italic;color:var(--brand-600);font-weight:500}
+  .hero{margin-top:5mm;height:83mm;overflow:hidden}
+  .hero img{width:100%;height:100%;object-fit:cover;object-position:center 45%}
+  .products{display:grid;grid-template-columns:1fr 1fr;gap:6mm;padding:5mm 14mm 0;align-items:end}
+  .products figure{text-align:center}
+  .products img{max-height:55mm;max-width:100%;width:auto;object-fit:contain}
+  .products figcaption{margin-top:2.2mm;font-family:Montserrat,sans-serif;font-size:8pt;font-weight:700;color:var(--navy-800)}
+  .products figcaption em{display:block;font-style:normal;font-weight:500;font-size:7.3pt;opacity:.65;margin-top:.7mm}
+
+  .deliver{position:absolute;left:14mm;right:14mm;bottom:50mm;display:grid;grid-template-columns:auto 1fr;gap:6mm;
+           align-items:center;background:var(--navy-900);color:#fff;border-radius:2mm;padding:3.4mm 5mm}
+  .deliver .big{font-family:Montserrat,sans-serif;font-weight:800;line-height:.92;text-align:center}
+  .deliver .big b{display:block;font-size:24pt;color:var(--brand-400)}
+  .deliver .big span{display:block;font-size:7pt;letter-spacing:.2em;text-transform:uppercase;margin-top:1.4mm}
+  .deliver ol{list-style:none;display:grid;grid-template-columns:repeat(4,1fr);gap:3mm}
+  .deliver ol li{font-size:6.8pt;line-height:1.35;color:rgba(255,255,255,.78)}
+  .deliver ol b{display:block;font-family:Montserrat,sans-serif;font-size:7.2pt;color:#fff;margin-bottom:.5mm}
+  .deliver ol i{font-style:normal;color:var(--brand-400)}
+
+  .capstrip{position:absolute;left:0;right:0;bottom:16mm;background:var(--navy-900);color:#fff;padding:5mm 10mm}
+  .capstrip h2{text-align:center;font-size:6.6pt;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--brand-400);margin-bottom:3.6mm}
+  .capstrip ul{display:grid;grid-template-columns:repeat(8,1fr);gap:2.5mm;list-style:none}
+  .capstrip li{text-align:center}
+  .capstrip svg{width:6.4mm;height:6.4mm;stroke:var(--brand-400)}
+  .capstrip span{display:block;margin-top:1.4mm;font-family:Montserrat,sans-serif;font-size:5.9pt;font-weight:700;letter-spacing:.06em;text-transform:uppercase;line-height:1.25}
+  .coverfoot{position:absolute;left:0;right:0;bottom:0;height:16mm;background:var(--navy-950);color:#fff;display:flex;align-items:center;justify-content:center}
+  .coverfoot p{font-family:Montserrat,sans-serif;font-size:8.5pt;font-weight:700;letter-spacing:.3em;text-transform:uppercase}
+
+  /* inside */
+  .ihead{background:var(--navy-950);color:#fff;padding:6.5mm 12mm 5.5mm}
+  .ihead .logos{display:flex;align-items:center;gap:8mm;margin-bottom:4.5mm}
+  .ihead .logos img{height:8.4mm;width:auto;background:#fff;padding:1.4mm 2.2mm;border-radius:1mm}
+  .ihead h1{font-size:16pt;font-weight:800;line-height:1.14;max-width:118mm}
+  .ihead .strap{margin-top:2.6mm;font-family:Montserrat,sans-serif;font-size:7.2pt;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--brand-400)}
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:4mm;margin-top:4.6mm;padding-top:3.8mm;border-top:1px solid rgba(255,255,255,.18)}
+  .stats b{display:block;font-family:Montserrat,sans-serif;font-size:13.5pt;font-weight:800;line-height:1}
+  .stats span{display:block;margin-top:1mm;font-size:6.7pt;color:rgba(255,255,255,.72);line-height:1.3}
+
+  .body{padding:4mm 12mm 3.5mm}
+  h2.sechead{font-size:10.2pt;font-weight:800;color:var(--navy-900);margin-bottom:3mm;padding-bottom:1.6mm;border-bottom:2px solid var(--brand-500)}
+  .cols2{display:grid;grid-template-columns:1fr 1fr;gap:6.5mm;margin-bottom:4.5mm}
+
+  .benefits{list-style:none;display:grid;gap:1.5mm}
+  .benefits li{display:flex;gap:2.4mm;background:var(--mist-50);border:1px solid var(--mist-200);border-radius:1.5mm;padding:1.7mm 2.4mm}
+  .benefits svg{width:5.1mm;height:5.1mm;flex:0 0 auto;stroke:var(--brand-600);stroke-width:1.7;margin-top:.3mm}
+  .benefits b{display:block;font-family:Montserrat,sans-serif;font-size:8.2pt;color:var(--navy-900)}
+  .benefits p{font-size:7.2pt;line-height:1.33;color:rgba(0,43,92,.72);margin-top:.4mm}
+
+  .brandbox{border:1px solid var(--mist-200);border-radius:2mm;overflow:hidden}
+  .brandbox + .brandbox{margin-top:2.6mm}
+  .brandbox > header{background:var(--navy-800);color:#fff;padding:2.3mm 3.2mm;display:flex;align-items:center;justify-content:space-between;gap:3mm}
+  .brandbox > header img{height:4.8mm;width:auto;background:#fff;padding:.8mm 1.2mm;border-radius:.7mm}
+  .brandbox > header span{font-family:Montserrat,sans-serif;font-size:6.4pt;font-weight:700;letter-spacing:.09em;text-transform:uppercase;text-align:right}
+  .brandbox .inner{padding:2.2mm 2.8mm}
+  .brandbox .inner > p{font-size:7.2pt;line-height:1.34;color:rgba(0,43,92,.75);margin-bottom:1.6mm}
+  .cat{margin-bottom:1.5mm}
+  .cat:last-child{margin-bottom:0}
+  .cat b{display:block;font-family:Montserrat,sans-serif;font-size:7.7pt;color:var(--navy-900);margin-bottom:.7mm}
+  .cat ul{list-style:none;display:flex;flex-wrap:wrap;gap:1.1mm}
+  .cat li{border:1px solid var(--mist-300);border-radius:.8mm;padding:.6mm 1.4mm;font-family:Montserrat,sans-serif;font-size:6pt;font-weight:700;letter-spacing:.03em;text-transform:uppercase;color:var(--brand-600)}
+
+  .approvals,.standards{display:flex;flex-wrap:wrap;gap:1.3mm;list-style:none}
+  .approvals li{border:1px solid var(--mist-200);border-radius:.9mm;background:var(--mist-50);padding:.9mm 1.7mm;font-size:6.2pt;color:rgba(0,43,92,.65)}
+  .approvals b{font-family:Montserrat,sans-serif;font-size:6.4pt;color:var(--navy-900);margin-right:.5mm}
+  .standards{margin-top:1.6mm}
+  .standards li{border:1px solid var(--mist-300);border-radius:.9mm;padding:.8mm 1.6mm;font-family:Montserrat,sans-serif;font-size:6.1pt;font-weight:700;color:var(--brand-600)}
+  .calnote{margin-top:1.8mm;font-size:7.1pt;line-height:1.4;color:rgba(0,43,92,.68)}
+
+  .contact{margin-top:auto;background:var(--navy-950);color:#fff;padding:5mm 12mm}
+  .contact .row{display:flex;align-items:center;justify-content:space-between;gap:8mm}
+  .contact h2{font-size:12.5pt;font-weight:800}
+  .contact .who{margin-top:1.4mm;font-size:7.8pt;color:rgba(255,255,255,.75)}
+  .contact .who b{color:#fff;font-size:8.8pt}
+  .contact .deets{display:flex;gap:6.5mm;font-size:8.2pt}
+  .contact .deets span{display:block;font-family:Montserrat,sans-serif;font-size:6pt;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--brand-400);margin-bottom:.7mm}
+  .contact .deets b{font-weight:600}
+  .contact .foot{margin-top:3mm;padding-top:2.2mm;border-top:1px solid rgba(255,255,255,.16);display:flex;align-items:center;justify-content:space-between}
+  .contact .foot p{font-family:Montserrat,sans-serif;font-size:6.8pt;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.7)}
+  .contact .foot div{display:flex;align-items:center;gap:4mm}
+  .contact .foot img{height:6.2mm;width:auto;background:#fff;padding:.9mm 1.4mm;border-radius:.7mm}
+</style>
+</head>
+<body>
+
+<!-- ============ PAGE 1 ============ -->
+<section class="page">
+  <div class="brandbar">
+    <img src="IMG/logo-petrol-full.jpg" alt="PETROL Instruments">
+    <i></i>
+    <img src="IMG/logo-aquametro.jpg" alt="AQUAMETRO">
+  </div>
+
+  <div class="coverhead">
+    <h1>VESSEL AND TANKER<span>OPERATIONS</span></h1>
+    <div class="rule"><i></i><i></i></div>
+    <p>Reliable measurement. Safer operations. Greater efficiency.</p>
+  </div>
+
+  <div class="hero"><img src="IMG/hero-tankers.jpg" alt="Loaded product tanker under way at sunrise"></div>
+
+  <div class="products">
+    <figure>
+      <img src="IMG/petrol-double-case.jpg" alt="PETROL double case PD flowmeter">
+      <figcaption>PETROL double case PD flowmeters<em>Custody transfer &amp; fiscal measurement to ±0.15%</em></figcaption>
+    </figure>
+    <figure>
+      <img src="IMG/aquametro-products.jpg" alt="AQUAMETRO flow meters">
+      <figcaption>AQUAMETRO flow measurement<em>Electromagnetic, ultrasonic, turbine &amp; Coriolis</em></figcaption>
+    </figure>
+  </div>
+
+  <div class="deliver">
+    <div class="big"><b>14</b><span>Days</span></div>
+    <ol>
+      <li><b><i>01</i> Order confirmed</b>Specification agreed and order placed.</li>
+      <li><b><i>02</i> Production &amp; testing</b>Built, calibrated and tested to specification.</li>
+      <li><b><i>03</i> Shipping</b>Documentation prepared and goods dispatched.</li>
+      <li><b><i>04</i> Delivery</b>Within 14 days of order confirmation.</li>
+    </ol>
+  </div>
+
+  <div class="capstrip">
+    <h2>Proven marine applications</h2>
+    <ul>
+      <li><svg viewBox="0 0 24 24" stroke="currentColor"><path d="M3 16.4h18l-1.8 4.2H4.8L3 16.4Z"/><path d="M5.6 16.4V11h12.8v5.4"/><path d="M8.4 11V8.2h3.2V11M15 11V9.2h2.2"/></svg><span>Oil &amp; Chemical Tankers</span></li>
+      <li><svg viewBox="0 0 24 24" stroke="currentColor"><path d="M2.8 17.2h18.4l-1.6 3.6H4.4l-1.6-3.6Z"/><path d="M5.2 17.2v-4.6h13.6v4.6"/><circle cx="9" cy="9.6" r="2.4"/><circle cx="15.4" cy="9.6" r="2.4"/></svg><span>LNG / LPG Carriers</span></li>
+      <li><svg viewBox="0 0 24 24" stroke="currentColor"><path d="M2.8 17.4h18.4l-1.6 3.4H4.4l-1.6-3.4Z"/><path d="M5.4 17.4v-4.8h9.4v4.8"/><path d="M17.6 13.4V6.8l2.6 2.4v4.2M14.8 13.4h5.4"/></svg><span>Bunkering Operations</span></li>
+      <li><svg viewBox="0 0 24 24" stroke="currentColor"><path d="M2.8 19.6h18.4"/><path d="M6.4 19.6V10h11.2v9.6"/><path d="M9 10V5.4h6V10M12 5.4V2.8M8.4 13.6h7.2"/></svg><span>Offshore Support Vessels</span></li>
+      <li><svg viewBox="0 0 24 24" stroke="currentColor"><path d="M3 14.4a7.8 7.8 0 0 1 18 0"/><path d="M12 14.4 15.6 9"/><path d="M3 19.4h18"/></svg><span>Fleet &amp; Fuel Management</span></li>
+      <li><svg viewBox="0 0 24 24" stroke="currentColor"><path d="M4 8.6h12.4M13.6 5.8 16.4 8.6l-2.8 2.8"/><path d="M20 15.4H7.6M10.4 12.6 7.6 15.4l2.8 2.8"/></svg><span>Cargo Transfer &amp; Metering</span></li>
+      <li><svg viewBox="0 0 24 24" stroke="currentColor"><rect x="3.2" y="9" width="12.6" height="8.4" rx="1.6"/><path d="M15.8 12.2h2.4l2.6-2.4v7.6l-2.6-2.4h-2.4"/><path d="M6.6 9V6.4h5.4V9"/></svg><span>Engine Room Fuel</span></li>
+      <li><svg viewBox="0 0 24 24" stroke="currentColor"><path d="M3.4 20.4V9.6L12 4.2l8.6 5.4v10.8"/><path d="M9 20.4v-5.2h6v5.2M9.6 10.6h4.8"/></svg><span>Process &amp; Utility Systems</span></li>
+    </ul>
+  </div>
+
+  <div class="coverfoot"><p>Trusted brands. Superior solutions.</p></div>
+</section>
+
+<!-- ============ PAGE 2 ============ -->
+<section class="page sheet">
+  <div class="ihead">
+    <div class="logos">
+      <img src="IMG/logo-petrol.jpg" alt="PETROL Instruments">
+      <img src="IMG/logo-aquametro.jpg" alt="AQUAMETRO">
+    </div>
+    <h1>Trusted measurement solutions for vessel and tanker operations</h1>
+    <p class="strap">Accurate measurement &nbsp;|&nbsp; Safe operations &nbsp;|&nbsp; Maximum uptime</p>
+    <div class="stats">
+      <div><b>±0.15%</b><span>Accuracy on fiscal applications</span></div>
+      <div><b>±0.02%</b><span>Repeatability</span></div>
+      <div><b>2,000</b><span>m³/h maximum flow rate</span></div>
+      <div><b>1970</b><span>Building PD flowmeters since</span></div>
+    </div>
+  </div>
+
+  <div class="body">
+    <div class="cols2">
+      <div>
+        <h2 class="sechead">Key benefits</h2>
+        <ul class="benefits">
+          <li><svg viewBox="0 0 24 24" stroke="currentColor"><path d="M12 3 4.5 6v6c0 4.2 3 7.8 7.5 9 4.5-1.2 7.5-4.8 7.5-9V6L12 3Z"/><path d="m8.8 12 2.2 2.2 4.2-4.4"/></svg><div><b>Enhanced safety</b><p>Accurate, repeatable measurement to prevent overfills, leaks and operational risk during transfer.</p></div></li>
+          <li><svg viewBox="0 0 24 24" stroke="currentColor"><circle cx="12" cy="12" r="3.3"/><circle cx="12" cy="12" r="8.6"/></svg><div><b>Improved efficiency</b><p>Real-time data for better decision making and smoother operations.</p></div></li>
+          <li><svg viewBox="0 0 24 24" stroke="currentColor"><circle cx="12" cy="13.5" r="7.5"/><path d="M12 9.8v3.7l2.4 2.1M9.4 2.8h5.2"/></svg><div><b>No wear by design</b><p>Floating rotors never touch each other or the measuring chamber, so accuracy does not drift with service hours.</p></div></li>
+          <li><svg viewBox="0 0 24 24" stroke="currentColor"><path d="M20 5.6a4.8 4.8 0 0 1-6.3 6l-6.4 6.4a2 2 0 0 1-2.8-2.8l6.4-6.4a4.8 4.8 0 0 1 6-6.3l-3 3 2.1 2.1 3-3Z"/></svg><div><b>Serviceable in place</b><p>The double case lets the measuring unit come out for checking without dismounting the meter from the line.</p></div></li>
+          <li><svg viewBox="0 0 24 24" stroke="currentColor"><circle cx="12" cy="12" r="9"/><path d="M3.2 9.6h17.6M3.2 14.4h17.6"/><path d="M12 3c2.4 2.5 3.6 5.5 3.6 9S14.4 18.5 12 21c-2.4-2.5-3.6-5.5-3.6-9S9.6 5.5 12 3Z"/></svg><div><b>Global support</b><p>Backed by experienced teams and trusted partners worldwide.</p></div></li>
+        </ul>
+      </div>
+
+      <div>
+        <h2 class="sechead">Our products</h2>
+        <div class="brandbox">
+          <header><img src="IMG/logo-petrol.jpg" alt="PETROL"><span>PD Flowmeters since 1970</span></header>
+          <div class="inner">
+            <p>Italian-built positive displacement flowmeters for custody transfer and fiscal measurement — floating rotors, magnetic transmission and a double case you can service without breaking the line.</p>
+            <div class="cat"><b>Double case PD flowmeters</b><ul><li>1″ to 16″</li><li>2,000 m³/h</li><li>150 bar</li><li>250 °C</li></ul></div>
+            <div class="cat"><b>Single case PD flowmeters</b><ul><li>1″ to 4″</li><li>10 bar</li><li>Pocketless</li></ul></div>
+            <div class="cat"><b>Counters &amp; transmitters</b><ul><li>Mechanical</li><li>Preset batch</li><li>Fiscal</li><li>HART</li></ul></div>
+            <div class="cat"><b>Master meters &amp; tank provers</b><ul><li>±0.1%</li><li>50–10,000 L</li><li>Portable</li></ul></div>
+            <div class="cat"><b>Strainers &amp; control valves</b><ul><li>0.5″ to 16″</li><li>40/80/200 mesh</li><li>Batch control</li></ul></div>
+          </div>
+        </div>
+
+        <div class="brandbox">
+          <header><img src="IMG/logo-aquametro.jpg" alt="AQUAMETRO"><span>Flow Measurement Solutions</span></header>
+          <div class="inner">
+            <p>Electronic flow metering, totalising and batch control for fuel, oil, water and process media.</p>
+            <div class="cat"><b>Flow meters</b><ul><li>Electromagnetic</li><li>Ultrasonic</li><li>Turbine</li><li>Coriolis</li></ul></div>
+            <div class="cat"><b>Totalisers &amp; controllers</b><ul><li>Batch control</li><li>Data logging</li><li>Alarms</li></ul></div>
+            <div class="cat"><b>Specialist solutions</b><ul><li>Fuel &amp; oil</li><li>Water &amp; wastewater</li><li>Chemical</li></ul></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <h2 class="sechead">Fiscal approvals &amp; certification</h2>
+      <ul class="approvals">
+        <li><b>Malaysia</b> NMIM / SIRIM</li><li><b>Indonesia</b> MIGAS</li><li><b>Europe</b> MID / WELMEC</li>
+        <li><b>Nigeria</b> DPR</li><li><b>China</b> AQSIC (PAC)</li><li><b>Russia</b> Metrological</li>
+        <li><b>Greece</b> Hellenic</li><li><b>Kazakhstan</b> Pattern</li>
+      </ul>
+      <ul class="standards">
+        <li>OIML R117</li><li>API MPMS</li><li>PED 2014/68/EU</li><li>ATEX</li>
+        <li>ISO 9001:2015</li><li>ISO 14001:2015</li><li>ISO 45001:2018</li><li>Lloyd's Register</li>
+      </ul>
+      <p class="calnote">Every meter is calibrated before delivery in a laboratory running four tank provers — 10,000, 5,000, 1,000 and 100 litres — attested by the Italian Metric Office. Approvals vary by model and configuration.</p>
+    </div>
+  </div>
+
+  <div class="contact">
+    <div class="row">
+      <div>
+        <h2>Contact us today</h2>
+        <p class="who">For information, quotations or technical support<br><b>Mike Garwood</b> — Regional Manager, Malaysia</p>
+      </div>
+      <div class="deets">
+        <div><span>Email</span><b>mike@fuel-meters.com</b></div>
+        <div><span>Phone</span><b>+60 12 444 7347</b></div>
+        <div><span>Web</span><b>fuel-meters.com</b></div>
+      </div>
+    </div>
+    <div class="foot">
+      <p>Trusted brands. Superior solutions.</p>
+      <div><img src="IMG/logo-petrol.jpg" alt="PETROL"><img src="IMG/logo-aquametro.jpg" alt="AQUAMETRO"></div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

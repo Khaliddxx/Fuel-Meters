@@ -3,15 +3,16 @@ import Link from "next/link";
 import { CtaBand } from "@/components/cta-band";
 import { Icon } from "@/components/icon";
 import { Button, Card, Container, IconBadge, SectionHeading } from "@/components/ui";
-import { applications, benefits, brands, credentials, customers, deliverySteps } from "@/lib/site";
+import { Approvals } from "@/components/approvals";
+import { accuracy, applications, benefits, brands, credentials, customers, deliverySteps } from "@/lib/site";
 
 const capabilities = [
-  { icon: "gauge", label: "Pressure gauges" },
-  { icon: "thermometer", label: "Temperature instruments" },
-  { icon: "level", label: "Level measurement" },
-  { icon: "flow", label: "Flow meters" },
-  { icon: "droplet", label: "Water & wastewater" },
-  { icon: "process", label: "Industrial & process" },
+  { icon: "flow", label: "PD flowmeters" },
+  { icon: "gauge", label: "Master meters" },
+  { icon: "level", label: "Tank provers" },
+  { icon: "controller", label: "Batch control" },
+  { icon: "wrench", label: "Strainers & valves" },
+  { icon: "droplet", label: "Fuel & oil metering" },
 ];
 
 export default function HomePage() {
@@ -20,7 +21,7 @@ export default function HomePage() {
       {/* Hero */}
       <section className="relative isolate overflow-hidden bg-navy-950">
         <Image
-          src="/img/hero-ocean.webp"
+          src="/img/hero-tankers.webp"
           alt=""
           fill
           priority
@@ -40,7 +41,7 @@ export default function HomePage() {
               Reliable measurement. Safer operations. Greater efficiency.
             </h1>
             <p className="mt-6 max-w-xl text-pretty text-lg leading-relaxed text-mist-200">
-              BROSCO pressure, temperature and level instrumentation and AQUAMETRO flow
+              PETROL Instruments positive displacement flowmeters and AQUAMETRO flow
               measurement solutions — specified, supplied and supported for the vessels and
               terminals that cannot afford a bad number.
             </p>
@@ -52,18 +53,23 @@ export default function HomePage() {
                 Explore the range
               </Button>
             </div>
-            <p className="mt-8 flex flex-wrap items-center gap-x-3 gap-y-2 font-display text-xs font-bold uppercase tracking-[0.16em] text-mist-200/80">
-              <span>Accurate measurement</span>
-              <span aria-hidden="true" className="text-brand-400">
-                |
-              </span>
-              <span>Safe operations</span>
-              <span aria-hidden="true" className="text-brand-400">
-                |
-              </span>
-              <span>Maximum uptime</span>
-            </p>
           </div>
+
+          <dl className="mt-14 grid max-w-3xl grid-cols-2 gap-x-6 gap-y-8 border-t border-white/15 pt-8 sm:grid-cols-4">
+            {accuracy.map((stat) => (
+              <div key={stat.label}>
+                <dt className="sr-only">{stat.label}</dt>
+                <dd>
+                  <span className="block font-display text-3xl font-extrabold leading-none text-white">
+                    {stat.value}
+                  </span>
+                  <span className="mt-2 block text-[13px] leading-snug text-mist-200/75">
+                    {stat.label}
+                  </span>
+                </dd>
+              </div>
+            ))}
+          </dl>
         </Container>
       </section>
 
@@ -91,7 +97,7 @@ export default function HomePage() {
           <SectionHeading
             eyebrow="Our products"
             title="Two trusted brands, one measurement partner"
-            lead="Everything a vessel measures — pressure, temperature, level and flow — from brands built for marine duty and backed by regional support."
+            lead="Mechanical positive displacement metering for custody transfer, and electronic flow measurement for monitoring and control — from two brands built for marine duty and backed by regional support."
           />
 
           <div className="mt-14 space-y-16">
@@ -260,6 +266,8 @@ export default function HomePage() {
           </div>
         </Container>
       </section>
+
+      <Approvals />
 
       {/* Delivery + trust */}
       <section className="bg-navy-950 py-20 text-white md:py-24">

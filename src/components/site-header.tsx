@@ -45,10 +45,10 @@ export function SiteHeader() {
       <Container className="flex h-[72px] items-center justify-between gap-4">
         <Link href="/" className="flex shrink-0 items-center gap-3" aria-label="Fuel-Meters home">
           <Image
-            src="/img/logo-brosco.png"
-            alt="BROSCO"
-            width={760}
-            height={261}
+            src="/img/logo-petrol.png"
+            alt="PETROL Instruments"
+            width={900}
+            height={236}
             priority
             className="h-9 w-auto sm:h-10"
           />

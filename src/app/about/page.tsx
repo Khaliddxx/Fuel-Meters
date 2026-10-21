@@ -9,7 +9,7 @@ import { brands, contact, credentials, customers, deliverySteps } from "@/lib/si
 export const metadata: Metadata = {
   title: "About — marine measurement specialists in Malaysia",
   description:
-    "Fuel-Meters supplies and supports BROSCO and AQUAMETRO measurement instrumentation for vessel and tanker operations, with regional sales and technical support across Malaysia and South East Asia.",
+    "Fuel-Meters supplies and supports PETROL Instruments and AQUAMETRO flow measurement for vessel and tanker operations, with regional sales and technical support across Malaysia and South East Asia.",
   alternates: { canonical: "/about" },
 };
 
@@ -48,7 +48,7 @@ export default function AboutPage() {
               <SectionHeading
                 eyebrow="Who we are"
                 title="Trusted brands. Superior solutions."
-                lead="Fuel-Meters brings together BROSCO instrumentation and AQUAMETRO flow measurement under a single point of contact for shipowners, operators, managers and yards."
+                lead="Fuel-Meters brings together PETROL Instruments positive displacement flowmeters and AQUAMETRO flow measurement under a single point of contact for shipowners, operators, managers and yards."
               />
               <div className="mt-6 space-y-4 text-pretty leading-relaxed text-navy-800/80">
                 <p>
@@ -58,15 +58,21 @@ export default function AboutPage() {
                   instrument that drifts is not an inconvenience — it is a commercial exposure.
                 </p>
                 <p>
-                  That is the standard both brands are built to. BROSCO covers pressure, temperature
-                  and level with mechanical and digital instruments proven in marine service.
-                  AQUAMETRO covers flow — electromagnetic, ultrasonic, turbine and Coriolis — with
-                  the totalising, batch control and data logging that fuel management and cargo
-                  transfer depend on.
+                  That is the standard both brands are built to. PETROL Instruments has built
+                  positive displacement flowmeters in Italy since 1970 — floating rotors that never
+                  touch, magnetic transmission and a double case that opens for inspection without
+                  breaking the line. Every meter leaves the factory calibrated against tank provers
+                  attested by the Italian Metric Office, and the range carries fiscal approvals in
+                  Malaysia, Indonesia, Europe and beyond.
                 </p>
                 <p>
-                  Between them they cover effectively everything a vessel measures, which means one
-                  specification conversation, one order and one point of support instead of four.
+                  AQUAMETRO covers the electronic side — electromagnetic, ultrasonic, turbine and
+                  Coriolis — with the totalising, batch control and data logging that fuel
+                  management and cargo transfer depend on.
+                </p>
+                <p>
+                  Mechanical custody transfer and electronic monitoring from one supplier means one
+                  specification conversation, one order and one point of support rather than three.
                 </p>
               </div>
 

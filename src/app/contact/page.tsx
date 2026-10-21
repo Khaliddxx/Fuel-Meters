@@ -7,7 +7,7 @@ import { contact, site } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Contact — quotations and technical support",
-  description: `Contact ${contact.name}, ${contact.role}, for quotations, specifications and technical support on BROSCO and AQUAMETRO marine measurement instrumentation. Email ${contact.email} or call ${contact.phone}.`,
+  description: `Contact ${contact.name}, ${contact.role}, for quotations, specifications and technical support on PETROL Instruments and AQUAMETRO flow measurement. Email ${contact.email} or call ${contact.phone}.`,
   alternates: { canonical: "/contact" },
 };
 
@@ -25,7 +25,7 @@ export default function ContactPage() {
         eyebrow="Contact us today"
         title="For information, quotations or technical support"
         lead="Tell us what you are measuring and we will come back with a specification, a price and a delivery date."
-        image="/img/hero-ocean.webp"
+        image="/img/hero-tankers.webp"
       />
 
       <section className="py-16 md:py-20">
@@ -97,7 +97,7 @@ export default function ContactPage() {
                   ))}
                 </ul>
                 <a
-                  href="/brosco-aquametro-marine-brochure.pdf"
+                  href="/petrol-aquametro-marine-brochure.pdf"
                   download
                   className="mt-6 inline-flex items-center gap-2 font-display text-sm font-bold text-brand-600 hover:text-brand-700"
                 >
